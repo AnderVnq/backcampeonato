@@ -1,20 +1,22 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UsePipes, ValidationPipe } from '@nestjs/common';
 import { CampeonatosService } from './campeonatos.service';
 import { CreateCampeonatoDto } from './dto/create-campeonato.dto';
-import { UpdateCampeonatoDto } from './dto/update-campeonato.dto';
+//import { UpdateCampeonatoDto } from './dto/update-campeonato.dto';
 
 @Controller('campeonatos')
 export class CampeonatosController {
   constructor(private readonly campeonatosService: CampeonatosService) {}
 
+
+  @UsePipes( new ValidationPipe({whitelist:true}))
   @Post()
   create(@Body() createCampeonatoDto: CreateCampeonatoDto) {
     return this.campeonatosService.create(createCampeonatoDto);
   }
 
   @Get()
-  findAll() {
-    return this.campeonatosService.findAll();
+  get_All() {
+    return this.campeonatosService.get_all();
   }
 
   @Get(':id')
@@ -22,10 +24,10 @@ export class CampeonatosController {
     return this.campeonatosService.findOne(+id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCampeonatoDto: UpdateCampeonatoDto) {
-    return this.campeonatosService.update(+id, updateCampeonatoDto);
-  }
+  // @Patch(':id')
+  // update(@Param('id') id: string, @Body() updateCampeonatoDto: UpdateCampeonatoDto) {
+  //   return 
+  // }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
