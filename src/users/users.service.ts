@@ -37,7 +37,7 @@ export class UsersService {
     if (exists) {throw new BadRequestException('El usuario ya existe')} 
     const newuser=this.userRepository.create(user)
 
-    return this.userRepository.save(newuser)
+    return await this.userRepository.save(newuser)
   }
 
 
