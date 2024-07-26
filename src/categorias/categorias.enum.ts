@@ -1,4 +1,4 @@
-export enum Tipo{
+export enum CategoriaEnum{
     MASTER='master',
     LIBRE='libre',
     JUVENIL='juvenil',

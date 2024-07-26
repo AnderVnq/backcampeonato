@@ -1,5 +1,5 @@
-import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
-import { Tipo } from "./categorias.enum";
+import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { CategoriaEnum } from "./categorias.enum";
 import { Bases } from "src/bases/bases.entity";
 import { Campeonatos } from "src/campeonatos/entities/campeonato.entity";
 
@@ -9,12 +9,12 @@ export class Categorias{
     @PrimaryGeneratedColumn('increment')
     id:number
 
-    @Column({nullable:false})
-    nombre:Tipo
+    @Column({nullable:false,length:20})
+    nombre:CategoriaEnum
 
 
-    @ManyToOne(() => Campeonatos, (championship) => championship.categorias, { onDelete: 'CASCADE' })
-    campeonato: Campeonatos;
+    //@ManyToOne(() => Campeonatos, (championship) => championship.categorias, { onDelete: 'CASCADE' })
+    campeonato: Campeonatos[];
 
     @OneToOne(() => Bases, (base) => base.categoria, { cascade: true, eager: true })
     @JoinColumn()
