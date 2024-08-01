@@ -17,7 +17,7 @@ export class CategoriasController {
     ){}
 
     //@IsSuperuser()
-    @UseGuards(JwtAuthGuard)
+    //@UseGuards(JwtAuthGuard)
     @Get()
     get_categorias(){
         return this.categoriaService.get_all()

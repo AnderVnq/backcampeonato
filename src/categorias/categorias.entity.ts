@@ -1,7 +1,8 @@
-import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { CategoriaEnum } from "./categorias.enum";
 import { Bases } from "src/bases/bases.entity";
 import { Campeonatos } from "src/campeonatos/entities/campeonato.entity";
+import { Jugadores } from "src/jugadores/entities/jugadore.entity";
 
 @Entity()
 export class Categorias{
@@ -20,5 +21,6 @@ export class Categorias{
     @JoinColumn()
     bases: Bases
 
-
+    @OneToMany(()=>Jugadores,jugadores=> jugadores.categoria)
+    jugadores:Jugadores[]
 }
