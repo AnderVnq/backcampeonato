@@ -7,6 +7,9 @@ import { AuthModule } from './auth/auth.module';
 import { CampeonatosModule } from './campeonatos/campeonatos.module';
 import { CategoriasModule } from './categorias/categorias.module';
 import { BasesModule } from './bases/bases.module';
+import { EquiposModule } from './equipos/equipos.module';
+import { InscripcionesModule } from './inscripciones/inscripciones.module';
+import { JugadoresModule } from './jugadores/jugadores.module';
 
 @Module({
   imports: [
@@ -29,6 +32,9 @@ import { BasesModule } from './bases/bases.module';
     CampeonatosModule,
     CategoriasModule,
     BasesModule,
+    EquiposModule,
+    InscripcionesModule,
+    JugadoresModule,
   ],
 })
 export class AppModule {}
