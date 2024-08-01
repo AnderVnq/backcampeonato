@@ -15,5 +15,6 @@ import { Categorias } from 'src/categorias/categorias.entity';
 ],
   controllers: [CampeonatosController],
   providers: [CampeonatosService],
+  exports:[CampeonatosService]
 })
 export class CampeonatosModule {}

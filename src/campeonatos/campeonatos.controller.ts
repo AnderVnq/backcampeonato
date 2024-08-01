@@ -1,7 +1,7 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UsePipes, ValidationPipe, ParseIntPipe, Query, HttpStatus } from '@nestjs/common';
 import { CampeonatosService } from './campeonatos.service';
 import { CreateCampeonatoDto } from './dto/create-campeonato.dto';
-//import { UpdateCampeonatoDto } from './dto/update-campeonato.dto';
+import { UpdateCampeonatoDto } from './dto/update-campeonato.dto';
 
 @Controller('campeonatos')
 export class CampeonatosController {
@@ -20,17 +20,33 @@ export class CampeonatosController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.campeonatosService.findOne(+id);
+  findOne(@Param('id',ParseIntPipe) id: number) {
+    return this.campeonatosService.findOne(id);
   }
 
-  // @Patch(':id')
-  // update(@Param('id') id: string, @Body() updateCampeonatoDto: UpdateCampeonatoDto) {
-  //   return 
-  // }
+
+
+  @Get('findName')
+  findByName(@Query('nombre') nombre:string){
+
+    if(!nombre){
+      return { message: 'El parámetro "nombre" es requerido.',status:HttpStatus.BAD_REQUEST};
+    }
+
+    return this.campeonatosService.findByName(nombre)
+  }
+
+
+
+  @UsePipes(new ValidationPipe({whitelist:true}))
+  @Patch(':id')
+  update(@Param('id') id: string, @Body() updateCampeonatoDto: UpdateCampeonatoDto) {
+    const number_id= parseInt(id)
+    return this.campeonatosService.update(number_id,updateCampeonatoDto)
+  }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.campeonatosService.remove(+id);
+  remove(@Param('id',ParseIntPipe) id: number) {
+    return this.campeonatosService.remove(id);
   }
 }

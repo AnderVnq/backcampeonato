@@ -1,5 +1,6 @@
 import { Categorias } from "src/categorias/categorias.entity";
-import { Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Inscripciones } from "src/inscripciones/entities/inscripcione.entity";
+import { Column, Entity, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 
 
@@ -28,4 +29,7 @@ export class Campeonatos {
         inverseJoinColumn:{name:'categoria_id'}
     })
     categorias:Categorias[]
+
+    @OneToMany(()=>Inscripciones,inscripciones=>inscripciones.campeonato)
+    inscripciones:Inscripciones[]
 }
