@@ -10,6 +10,7 @@ import { Users } from 'src/users/users.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 
 
+
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(
@@ -29,7 +30,8 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 
   async validate(payload: PayloadInterface) {
     const user = await this.authRepository.findOne({where:[{username:payload.username},{email:payload.email}]})
-    if(user){return new UnauthorizedException('credenciales erroneas')}
+    //console.log(user)
+    if(!user){return new UnauthorizedException('credenciales erroneas')}
     return payload
 
   }

@@ -15,15 +15,14 @@ export class AdminGuard implements CanActivate{
 
     canActivate(context: ExecutionContext):boolean{
         const is_superuser_req= this.reflector.get<boolean>(IS_SUPERUSER_KEY,context.getHandler())
-
+        //console.log(is_superuser_req)
         if(!is_superuser_req){
             return true
         }
-
         const request = context.switchToHttp().getRequest()
         const user = request.user
-
         return user?.is_superuser===true
+
 
     }
 
