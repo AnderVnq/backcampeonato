@@ -67,7 +67,9 @@ export class InscripcionesService {
 
   async findAll() {
 
-    const inscripciones = await this.inscripcionRepository.find()
+    const inscripciones = await this.inscripcionRepository.find({
+      relations:['campeonato','equipo']
+    })
     if(!inscripciones.length){
       throw new NotFoundException('No existen inscripciones')
     }
@@ -75,7 +77,7 @@ export class InscripcionesService {
     return inscripciones;
   }
 
-  async findOne(id: number) {
+  async findOne(id: number):Promise<Inscripciones>{
 
     const inscripcion = await this.inscripcionRepository.findOne({where:[{id:id}]})
 
@@ -92,12 +94,12 @@ export class InscripcionesService {
     const camp = await this.campeonatoService.findOne(campeonato_id)
 
     const inscripciones = await this.inscripcionRepository.find({where:
-      {campeonato:camp.id},
+      {campeonato:camp},
       relations:['equipo']
     }
-    )
+    ) 
 
-    console.log(inscripciones)
+    return inscripciones
   }
 
 

@@ -13,5 +13,6 @@ import { EquiposModule } from 'src/equipos/equipos.module';
   ],
   controllers: [InscripcionesController],
   providers: [InscripcionesService],
+  exports:[InscripcionesService]
 })
 export class InscripcionesModule {}

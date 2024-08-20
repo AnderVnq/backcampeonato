@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UsePipes, ValidationPipe } from '@nestjs/common';
 import { JugadoresService } from './jugadores.service';
 import { CreateJugadoreDto } from './dto/create-jugadore.dto';
 import { UpdateJugadoreDto } from './dto/update-jugadore.dto';
@@ -7,8 +7,12 @@ import { UpdateJugadoreDto } from './dto/update-jugadore.dto';
 export class JugadoresController {
   constructor(private readonly jugadoresService: JugadoresService) {}
 
+
+  @UsePipes( new ValidationPipe({whitelist:true}))
   @Post()
   create(@Body() createJugadoreDto: CreateJugadoreDto) {
+    console.log(createJugadoreDto)
+    console.log("a")
     return this.jugadoresService.create(createJugadoreDto);
   }
 
