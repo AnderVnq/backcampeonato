@@ -13,6 +13,9 @@ export class Bases{
 
     @Column()
     filePath: string;
+
+    @Column()
+    fileurl:string
     
     @OneToOne(() => Categorias, (category) => category.bases)
     categoria: Categorias;

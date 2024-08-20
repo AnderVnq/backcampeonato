@@ -5,8 +5,9 @@ import { JwtAuthGuard } from 'src/guards/jwt.guard';
 import { AdminGuard } from 'src/guards/superuser.guard';
 import { IsSuperuser } from 'src/decorators/admin.decorator';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { multerConfig } from 'src/config/multer-config';
+//import { multerConfig } from 'src/config/multer-config';
 import { UpdateBaseNombre } from './dto/update.nombre.dto';
+import { FileValidationPipe } from 'src/middlewares/file-middleware';
 
 @Controller('bases')
 export class BasesController {
@@ -20,23 +21,20 @@ export class BasesController {
     get_bases(){
         return this.baseService.get_all()
     }
-
-    @IsSuperuser()
-    @UseGuards(JwtAuthGuard,AdminGuard)
-    @UsePipes(new ValidationPipe({whitelist:true}))
-    @UseInterceptors(FileInterceptor('file',multerConfig))
+//
+    //@IsSuperuser()
+    //@UseGuards(JwtAuthGuard,AdminGuard)
+    @UsePipes(new ValidationPipe({whitelist:true}),FileValidationPipe)
+    @UseInterceptors(FileInterceptor('file'))
     @Post()
-    create_base(@UploadedFile() file, @Body() base:CrearBaseDto){
+    create_base(@UploadedFile() file:Express.Multer.File, @Body() base:CrearBaseDto){
 
         if(!file){
             throw new  BadRequestException('No se cargó ningun archivo')
         }
 
-        const new_base= {
-            ...base,
-            filePath:file.filename
-        }
-        return  this.baseService.create_base(new_base)
+
+        return  this.baseService.create_base(base,file)
     }
     /*
         esto se puede hacer pero que apunte y se guarde en un bucket de s3

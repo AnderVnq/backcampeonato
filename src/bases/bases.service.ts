@@ -4,6 +4,7 @@ import { Bases } from './bases.entity';
 import { Repository } from 'typeorm';
 import { CrearBaseDto } from './dto/crear-base.dto';
 import { UpdateBaseNombre } from './dto/update.nombre.dto';
+import { FirebaseStorageProvider } from 'src/shared/firebase-storage.provider';
 
 @Injectable()
 export class BasesService {
@@ -11,7 +12,8 @@ export class BasesService {
 
     constructor(
         @InjectRepository(Bases)
-        private readonly baseRepository:Repository<Bases>
+        private readonly baseRepository:Repository<Bases>,
+        private readonly storageProvider:FirebaseStorageProvider
     ){}
 
 
@@ -26,15 +28,25 @@ export class BasesService {
     }
 
 
-    async create_base(dto:CrearBaseDto & { filePath: string }):Promise<any>{
-        const exists= await this.baseRepository.findOne({where:[{filePath:dto.filePath}]})
+    async create_base(dto:CrearBaseDto, filePath:Express.Multer.File):Promise<any>{
+        const exists= await this.baseRepository.findOne({where:{
+            nombre:dto.nombre
+        }})
         if(exists){
-            throw new BadRequestException('la url/file ya fue registrada')
+            throw new BadRequestException(`la base ${dto.nombre} ya fue registrada`)
         }
 
-        const base= this.baseRepository.create(dto) 
+        const [file,url] = await this.storageProvider.upload(filePath,'bases',dto.nombre)
 
-        return await this.baseRepository.save(base)
+        console.log(file)
+        console.log(url)
+        const base= this.baseRepository.create({
+            nombre:dto.nombre,
+            filePath:file,
+            fileurl:url
+        }) 
+
+        return base //await this.baseRepository.save(base)
     }
 
 
