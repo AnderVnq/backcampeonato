@@ -1,5 +1,7 @@
 import { Categorias } from "src/categorias/categorias.entity";
+import { Grupos } from "src/grupos/entities/grupo.entity";
 import { Inscripciones } from "src/inscripciones/entities/inscripcione.entity";
+import { Partido } from "src/partidos/entities/partido.entity";
 import { Column, Entity, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 
@@ -32,4 +34,10 @@ export class Campeonatos {
 
     @OneToMany(()=>Inscripciones,inscripciones=>inscripciones.campeonato)
     inscripciones:Inscripciones[]
+
+    @OneToMany(()=>Grupos,grupos=>grupos.campeonato)
+    grupos:Grupos[]
+
+    @OneToMany(()=>Partido,partido=>partido.campeonato)
+    partido:Partido[]
 }

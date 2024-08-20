@@ -71,12 +71,12 @@ export class CampeonatosService {
 
 
 
-    return {message:"creado",campeonato}
-    //await this.campeonatoRepository.save(campeonato)
+    //return {message:"creado",campeonato}
+    return await this.campeonatoRepository.save(campeonato)
   }
 
 
-  async findOne(id: number):Promise<any>{
+  async findOne(id: number):Promise<Campeonatos>{
 
     const campeonato= await this.campeonatoRepository.findOne({where:[{id:id}]})
     if(!campeonato){
