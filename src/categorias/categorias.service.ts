@@ -50,7 +50,7 @@ export class CategoriasService {
     }
 
 
-    async get_ById(id:number):Promise<any>{
+    async get_ById(id:number):Promise<Categorias>{
         const categoria = await this.categoriaRepository.findOne({where:[{id:id}]})
         if(!categoria){
             throw new NotFoundException('Categoria no existente')

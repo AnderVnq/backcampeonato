@@ -71,7 +71,9 @@ export class EquiposService {
     return `This action updates a #${id} equipo ${dto}`;
   }
 
-
+  // async countTeamPlayers(id:number){
+  //   const count = await this.equipoRepository.count({where:{}})
+  // }
 
   async remove(id: number) {
 

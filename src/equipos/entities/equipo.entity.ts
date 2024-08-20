@@ -1,5 +1,8 @@
+import { Grupos } from "src/grupos/entities/grupo.entity";
 import { Inscripciones } from "src/inscripciones/entities/inscripcione.entity";
 import { Jugadores } from "src/jugadores/entities/jugadore.entity";
+import { Partido } from "src/partidos/entities/partido.entity";
+import { Puntaje } from "src/puntajes/entities/puntaje.entity";
 import { OneToMany, PrimaryGeneratedColumn,Column, Entity } from "typeorm";
 
 
@@ -26,5 +29,16 @@ export class Equipo {
 
     @OneToMany(()=>Jugadores,jugadores => jugadores.equipo )
     jugadores:Jugadores[]
+
+    @OneToMany(()=>Grupos,grupos => grupos.equipo)
+    grupos:Grupos[]
+
+    @OneToMany(()=>Puntaje,puntaje =>puntaje.equipo)
+    puntaje:Puntaje[]
+
+    @OneToMany(()=>Partido,partido=>partido.equipo_local)
+    equipoA:Partido[]
+    @OneToMany(()=>Partido,partido=>partido.equipo_visitante)
+    equipoB:Partido[]
     
 }
