@@ -1,4 +1,4 @@
-import {IsEmail, IsNotEmpty, IsString, IsUrl, MaxLength, MinLength } from "class-validator"
+import {IsEmail, IsNotEmpty, IsString, MaxLength, MinLength } from "class-validator"
 import { IsDNI } from "src/users/constraints/dni.constraints"
 
 
@@ -22,8 +22,6 @@ export class createNewUserDto{
     @IsEmail({},{message:'debes ingresar un correo valido'})
     email:string
 
-    @IsUrl()
-    image?:string
 
     @IsDNI()
     dni:string

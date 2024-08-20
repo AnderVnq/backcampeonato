@@ -8,6 +8,7 @@ import { Users } from 'src/users/users.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { JwtStrategy } from './strategies/jwt.strategie';
 import { PassportModule } from '@nestjs/passport';
+import { FirebaseStorageProvider } from 'src/shared/firebase-storage.provider';
 
 @Module({
   imports:[
@@ -20,13 +21,13 @@ import { PassportModule } from '@nestjs/passport';
       //global: true,
       useFactory: async (configService:ConfigService) => ({
         secret: configService.get<string>(JWT_SECRET),
-        signOptions: { expiresIn: '2h' },
+        signOptions: { expiresIn: '1h' },
       }),
       inject: [ConfigService],
     }),
   ],
   controllers: [AuthController],
-  providers:[AuthService,ConfigService,JwtStrategy],
-  exports: [PassportModule]
+  providers:[AuthService,ConfigService,JwtStrategy,FirebaseStorageProvider],
+  exports: [PassportModule,JwtModule,AuthService]
 })
 export class AuthModule {}
