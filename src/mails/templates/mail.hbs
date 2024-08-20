@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenida al Campeonato</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 90%;
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            background-color: #007bff;
+            color: #fff;
+            padding: 20px;
+            border-radius: 8px 8px 0 0;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 26px;
+        }
+        .content {
+            padding: 20px;
+        }
+        .content h2 {
+            font-size: 20px;
+            color: #007bff;
+            margin-top: 0;
+        }
+        .content p {
+            line-height: 1.6;
+            margin: 10px 0;
+        }
+        .content ul {
+            padding: 0;
+            list-style: none;
+            margin: 0;
+        }
+        .content ul li {
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+        }
+        .content ul li:last-child {
+            border-bottom: none;
+        }
+        .content ul li a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .content ul li a:hover {
+            text-decoration: underline;
+        }
+        .footer {
+            background-color: #007bff;
+            color: #fff;
+            padding: 20px;
+            border-radius: 0 0 8px 8px;
+            text-align: center;
+            font-size: 0.9em;
+        }
+        .footer a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        .footer .social-links a {
+            margin: 0 10px;
+        }
+        .footer .social-links img {
+            width: 24px;
+            height: 24px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Bienvenido al Campeonato {{campeonato}}</h1>
+        </div>
+        <div class="content">
+            <p>Hola {{name}},</p>
+            <p>Estamos encantados de tenerte en el campeonato. A continuación, encontrarás las bases del campeonato:</p>
+            <ul>
+                {{#each bases}}
+                <li>
+                    <h2>{{nombre}}</h2>
+                    <a href="{{filePath}}">Descargar PDF</a>
+                </li>
+                {{/each}}
+            </ul>
+            <p>Si tienes alguna pregunta o necesitas asistencia, no dudes en contactarnos.</p>
+        </div>
+        <div class="footer">
+            <p>&copy;Nuestra Plataforma. Todos los derechos reservados.</p>
+            <p>Síguenos en nuestras redes sociales:</p>
+            <div class="social-links">
+                <a href="https://facebook.com/nuestra-plataforma" target="_blank"><img src="https://img.icons8.com/ios-filled/50/ffffff/facebook-new.png" alt="Facebook"></a>
+                <a href="https://twitter.com/nuestra-plataforma" target="_blank"><img src="https://img.icons8.com/ios-filled/50/ffffff/twitter.png" alt="Twitter"></a>
+                <a href="https://instagram.com/nuestra-plataforma" target="_blank"><img src="https://img.icons8.com/ios-filled/50/ffffff/instagram-new.png" alt="Instagram"></a>
+            </div>
+            <p><a href="mailto:support@nuestra-plataforma.com">support@nuestra-plataforma.com</a> | <a href="https://nuestra-plataforma.com/terms" target="_blank">Términos de Servicio</a> | <a href="https://nuestra-plataforma.com/privacy" target="_blank">Política de Privacidad</a></p>
+        </div>
+    </div>
+</body>
+</html>
