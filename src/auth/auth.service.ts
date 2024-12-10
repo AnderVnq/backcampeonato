@@ -53,6 +53,7 @@ export class AuthService {
 
 
     async login(dto:LoginUser):Promise<any>{
+       
         const {username}=dto
         const user = await this.authRepository.findOne({where:[{username:username},{email:username}]})
         if(!user){
@@ -77,7 +78,10 @@ export class AuthService {
         const token = this.jwtService.sign(payload)
         const decode = this.jwtService.verify(token)
         console.log(decode)
-        return [token]
+        return {
+            isSuccess:true,
+            token:token
+        }
     }
 
 

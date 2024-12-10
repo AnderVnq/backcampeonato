@@ -36,13 +36,13 @@ export class BasesService {
             throw new BadRequestException(`la base ${dto.nombre} ya fue registrada`)
         }
 
-        const [file,url] = await this.storageProvider.upload(filePath,'bases',dto.nombre)
+        const {url,metadata} = await this.storageProvider.upload(filePath,'bases',dto.nombre)
 
-        console.log(file)
+        console.log(metadata)
         console.log(url)
         const base= this.baseRepository.create({
             nombre:dto.nombre,
-            filePath:file,
+            filePath:metadata.fullPath,
             fileurl:url
         }) 
 
